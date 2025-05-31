@@ -1,0 +1,42 @@
+# 打印欢迎信息
+print("欢迎使用简易计算器")
+print("=" * 20)
+
+# 获取用户输入
+num1 = float(input("请输入第一个数字: "))
+operator = input("请输入运算符 (+, -, *, /): ")
+num2 = float(input("请输入第二个数字: "))
+
+# 初始化结果变量
+result = 0
+
+# 根据运算符计算结果
+if operator == '+':
+    result = num1 + num2
+elif operator == '-':
+    result = num1 - num2
+elif operator == '*':
+    result = num1 * num2
+elif operator == '/':
+    # 检查除数是否为零
+    if num2 != 0:
+        result = num1 / num2
+    else:
+        print("错误：除数不能为零!")
+        exit()  # 终止程序
+else:
+    print(f"错误：不支持的运算符 {operator}")
+    exit()  # 终止程序
+
+# 格式化输出结果
+print("\n计算结果:")
+print(f"{num1} {operator} {num2} = {result}")
+
+# 保存记录到文件
+try:
+    with open("calculation_history.txt", "a", encoding="utf-8") as file:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        file.write(f"{timestamp} - {num1} {operator} {num2} = {result}\n")
+    print("计算记录已保存到 calculation_history.txt")
+except Exception as e:
+    print(f"保存记录失败: {e}")
